@@ -1,0 +1,8 @@
+# Design
+
+- The user's font is identified and loaded.
+- A virtual display is blocked into regions for each TTY character.
+- Each region is compared to each character in the font, so as to find the font shapes which break the region into differing colors (font foreground area vs font background area) the most accurately.
+- Each character is drawn with the nearest colors for its regions.
+
+This can be done in a vector way, or a raster way.
