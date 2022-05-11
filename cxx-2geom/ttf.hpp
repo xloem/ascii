@@ -161,7 +161,7 @@ std::string do_outline(std::vector<FT_Vector> points, std::vector<char> tags, st
 	return svg.str();
 }
 
-class glyph
+class Glyph
 {
 public:
 	int codepoint;
@@ -170,7 +170,7 @@ public:
 	FT_Outline ftoutline;
 	FT_Glyph_Metrics gm;
 	FT_Face face;
-	TTF file;
+	TTF & file;
 
 	FT_Vector* ftpoints;
 	char* tags;
@@ -179,36 +179,14 @@ public:
 	std::stringstream debug, tmp;
 	int bbwidth, bbheight;
 
-	glyph( TTF &f, std::string unicode_str )
-	{
-		file = f;
-		init( unicode_str );
-	}
-
-	glyph( const char * filename, std::string unicode_str )
-	{
-		this->file = ttf_file( std::string(filename) );
-		init( unicode_str );
-	}
-
-	glyph( const char * filename, const char * unicode_c_str )
-	{
-		this->file = ttf_file( std::string(filename) );
-		init( std::string(unicode_c_str) );
-	}
-
-	void free()
-	{
-		file.free();
-	}
-
-	void init( std::string unicode_s )
+	Glyph( TTF &f, int codepoint )
+	: file(f), codepoint(codepoint)
 	{
 		face = file.face;
-		codepoint = strtol( unicode_s.c_str() , NULL, 0 );
 		// Load the Glyph into the face's Glyph Slot + print details
 		FT_UInt glyph_index = FT_Get_Char_Index( face, codepoint );
-		debug << "<!--\nUnicode requested: " << unicode_s;
+		debug << "<!--\n";
+		// debug << "Unicode requested: " << unicode_s;
 		debug << " (decimal: " << codepoint << " hex: 0x"
 			<< std::hex << codepoint << std::dec << ")";
 		debug << "\nGlyph index for unicode: " << glyph_index;
