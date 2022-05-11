@@ -1,0 +1,12 @@
+<svg viewBox="0 0 240 80" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        @font-face {
+            font-family: font;
+            src: url("../fonts/DroidSansMono.ttf");
+        }
+        svg{
+            font-family: font, fallBackFonts, sans-serif;
+        }
+    </style>
+    <text x="20" y="35">Test</text>
+</svg>
