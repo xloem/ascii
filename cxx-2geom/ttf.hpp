@@ -5,6 +5,8 @@
 
 #include <2geom/path-sink.h>
 
+auto & debug = std::cerr;
+
 FT_Vector halfway_between( FT_Vector p1, FT_Vector p2 )
 {
 	FT_Vector newv;
